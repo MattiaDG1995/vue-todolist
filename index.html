@@ -10,7 +10,31 @@
   <body>
 
     <div id="root">
-        <div class="container">
+        <div class="container mt-4">
+            <div class="d-flex align-items-center justify-content-center">
+                <input v-model="testo" type="text" placeholder="inserisci parola">
+                <button class="btn btn-primary mx-2" @click="addText()">Aggiungi</button>
+            </div>
+
+            <div class="p-3">
+                <ul class="list-group list-group-flush" v-if="todoList.length > 0">
+                    <li v-for="( elem, index) in todoList" :key="index" class="list-group-item d-flex justify-content-between align-items-center">
+                        <span @click="todoCompleted(index, elem)" :class="(elem.done == true) ? 'text-decoration-line-through' : ''">{{ elem.testo }}</span>
+                        <i class="fa-solid fa-xmark text-danger" @click="rimuoviElemento(index, elem)"></i>
+                    </li>
+                </ul>
+                <h2 v-else>Nessun Elemento</h2>
+            </div>
+
+            <div>
+                <h2 class="my-3">Todo Completate</h2>
+                <ul class="list-group list-group-flush" v-if="todoDone.length > 0">
+                    <li v-for="(elem, index) in todoDone" :key="index" class="list-group-item d-flex justify-content-between align-items-center">
+                        <span :class="(elem.done == true) ? 'text-decoration-line-through' : ''">{{ elem.testo }}</span>
+                        <i class="fa-solid fa-xmark text-danger" @click="rimuoviElemento(index, elem)"></i>
+                    </li>
+                </ul>
+            </div>
 
         </div>
     </div>
